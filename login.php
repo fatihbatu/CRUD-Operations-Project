@@ -1,3 +1,21 @@
+<?php
+ob_start();
+session_start();
+require 'connect.php';
+
+$askAdmin=$pdo->prepare("SELECT * FROM admins where admin_mail=:mail");
+$askAdmin->execute(array(
+  'mail' => $_SESSION['admin_mail']
+  ));
+$count=$askAdmin->rowCount();
+$pullAdmin=$askAdmin->fetch(PDO::FETCH_ASSOC);
+
+if ($count!==0) {
+
+  Header("Location:index.php?state=alreadyloggedin");
+  exit;
+}
+?>
 <!doctype html>
 <html lang="en">
 
