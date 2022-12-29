@@ -29,6 +29,24 @@ try {
 	MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 	COMMIT;");
 
+	$pdo->query("CREATE TABLE IF NOT EXISTS `admins` (
+  `admin_id` int(11) NOT NULL,
+  `admin_name` varchar(59) NOT NULL,
+  `admin_mail` varchar(50) NOT NULL,
+  `admin_password` varchar(500) NOT NULL,
+  `admin_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+INSERT INTO `admins` (`admin_id`, `admin_name`, `admin_mail`, `admin_password`, `admin_time`) VALUES
+(1, 'Admin', 'admin@admin.com', '$2y$10$8pEyysf7C2cOM0LhkI3yPea1Rd77cyor9cLS/CBPOk32lIhQ12KH2', '2022-12-29 13:11:30');
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`admin_id`);
+ALTER TABLE `admins`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;");
+
+
+
+
 } catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
