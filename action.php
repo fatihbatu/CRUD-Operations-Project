@@ -46,11 +46,11 @@ if (isset($_POST['userdelete'])) {
 
 	if ($update) {
         $_SESSION['state']='ok';
-		Header("Location:./admin.php");
+		Header("Location:./index.php");
 
 	} else {
         $_SESSION['state']='no';
-		Header("Location:./admin.php");
+		Header("Location:./index.php");
 	}
 
 }
@@ -70,11 +70,11 @@ if (isset($_POST['useradd'])) {
 
 	if ($update) {
         $_SESSION['useradd']='ok';
-		Header("Location:./admin.php");
+		Header("Location:./index.php");
 
 	} else {
         $_SESSION['useradd']='no';
-		Header("Location:./admin.php");
+		Header("Location:./index.php");
 	}
 
 }
@@ -131,7 +131,7 @@ if (isset($_POST['admincreate'])) {
 	$values = [':name' => $admin_name, ':mail' => $admin_mail, ':passwd' => $hash];
 	$setSave->execute($values);
 
-	if ($update) {
+	if ($setSave) {
 
 		header("Location:./login.php?state=saved");
 		exit;

@@ -22,7 +22,7 @@
                         <a style="float: right; " href="index.php"><button class="btn btn-primary">Back</button></a>
 
                         <!-- Horizontal Form -->
-                        <form action="./action.php" method="POST">
+                        <form action="action.php" method="POST">
                             <div class="row mb-3">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-8">
