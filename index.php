@@ -7,7 +7,7 @@ $askUser->execute();
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>General Tables</h1>
+        <h1>Users</h1>
 
         <?php if($_SESSION['state']=='ok') { ?>
         <div class="alert alert-success" role="alert">
@@ -31,9 +31,7 @@ $askUser->execute();
 
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">General</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

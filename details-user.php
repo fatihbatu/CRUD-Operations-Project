@@ -13,12 +13,11 @@ $pullUser=$askUser->fetch(PDO::FETCH_ASSOC);
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Form Layouts</h1>
+        <h1>User Details</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Forms</li>
-                <li class="breadcrumb-item active">Layouts</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                <li class="breadcrumb-item">User Details</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -41,7 +40,7 @@ $pullUser=$askUser->fetch(PDO::FETCH_ASSOC);
                 <div class="card">
 
                     <div class="card-body">
-                        <h5 class="card-title">Horizontal Form</h5>
+                        <h5 class="card-title"></h5>
                         <a style="float: right; " href="index.php"><button class="btn btn-primary">Back</button></a>
 
                         <!-- Horizontal Form -->
