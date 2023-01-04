@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 // PHP Connect Information Pass
 require_once 'config.php';
 

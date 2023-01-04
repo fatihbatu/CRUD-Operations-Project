@@ -92,10 +92,11 @@ if (isset($_POST['useradd'])) {
 	$users_fname = $_POST['users_fname'];
 	$users_lname = $_POST['users_lname'];
 	$users_email = $_POST['users_email'];
+	$users_state = $_POST['users_state'];
+	$users_gender = $_POST['users_gender'];
 
-
-	$setSave=$pdo->prepare("INSERT INTO `users` (`users_fname`, `users_lname`, `users_email`)
-	VALUES ('$users_fname', '$users_lname', '$users_email')");
+	$setSave=$pdo->prepare("INSERT INTO `users` (`users_fname`, `users_lname`, `users_email`, `users_state`, `users_gender`)
+	VALUES ('$users_fname', '$users_lname', '$users_email', '$users_state', '$users_gender')");
 
 	$update=$setSave->execute(array());
 
