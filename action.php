@@ -12,6 +12,38 @@ if (isset($_POST['useredit'])) {
 	$setSave=$pdo->prepare("UPDATE users SET
 		users_fname=:users_fname,
 		users_lname=:users_lname,
+		users_email=:users_email,
+		users_state=:users_state,
+		users_gender=:users_gender
+		WHERE users_id={$_POST['users_id']}");
+
+	$update=$setSave->execute(array(
+		'users_fname' => $_POST['users_fname'],
+		'users_lname' => $_POST['users_lname'],
+		'users_email' => $_POST['users_email'],
+		'users_state' => $_POST['users_state'],
+		'users_gender' => $_POST['users_gender']
+		));
+
+
+	if ($update) {
+        $_SESSION['state']='ok';
+		Header("Location:./edit-user.php?users_id=$users_id");
+
+	} else {
+        $_SESSION['state']='no';
+		Header("Location:./edit-user.php?users_id=$users_id");
+	}
+
+}
+
+if (isset($_POST['userdetail'])) {
+
+	$users_id=$_POST['users_id'];
+
+	$setSave=$pdo->prepare("UPDATE users SET
+		users_fname=:users_fname,
+		users_lname=:users_lname,
 		users_email=:users_email
 		WHERE users_id={$_POST['users_id']}");
 
@@ -127,22 +159,34 @@ if (isset($_POST['admincreate'])) {
 	$admin_password=$_POST['admin_password'];
 	$hash = password_hash($admin_password, PASSWORD_DEFAULT);
 
-	$setSave=$pdo->prepare("INSERT INTO admins (admin_name, admin_mail, admin_password) VALUES (:name, :mail, :passwd)");
-	$values = [':name' => $admin_name, ':mail' => $admin_mail, ':passwd' => $hash];
-	$setSave->execute($values);
+	$check=$pdo->prepare("SELECT * FROM admins WHERE admin_mail=:mail");
+	$values = [':mail' => $admin_mail];
+	$check->execute($values);
 
-	if ($setSave) {
-
-		header("Location:./login.php?state=saved");
-		exit;
-
-
-
+	$row = $check->fetch(PDO::FETCH_ASSOC);
+	if(!$row) {
+		$setSave=$pdo->prepare("INSERT INTO admins (admin_name, admin_mail, admin_password) VALUES (:name, :mail, :passwd)");
+		$values = [':name' => $admin_name, ':mail' => $admin_mail, ':passwd' => $hash];
+		$setSave->execute($values);
+		if ($setSave) {
+			$_SESSION['state']='success';
+			$_SESSION['info']=$admin_mail;
+			header("Location:./join.php");
+			exit;
+		} else {
+			$_SESSION['state']='fail';
+			header("Location:./join.php");
+			exit;
+		}
 	} else {
-
-		header("Location:./join.php?state=no");
+		$_SESSION['state']='existRecord';
+		$_SESSION['info']=$admin_mail;
+		header("Location:./join.php");
 		exit;
 	}
+
+
+
 	
 
 }

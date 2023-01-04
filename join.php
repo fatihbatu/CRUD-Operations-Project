@@ -1,87 +1,84 @@
-<?php
-ob_start();
-session_start();
-require 'connect.php';
+<?php include 'register-header.php'?>
 
-$askAdmin=$pdo->prepare("SELECT * FROM admins where admin_mail=:mail");
-$askAdmin->execute(array(
-  'mail' => $_SESSION['admin_mail']
-  ));
-$count=$askAdmin->rowCount();
-$pullAdmin=$askAdmin->fetch(PDO::FETCH_ASSOC);
+<script>
+var check = function() {
 
-if ($count!==0) {
+    var pswd1val = document.getElementById('pswd1').value;
+    var pswd2val = document.getElementById('pswd2').value;
 
-  Header("Location:index.php?state=alreadyloggedin");
-  exit;
+    var element = document.getElementById("button");
+    if (document.getElementById('pswd2').value == document.getElementById('pswd1').value) {
+        var passw = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+        if (document.getElementById('pswd1').value.match(passw) && document.getElementById('pswd2').value.match(
+                passw)) {
+            element.classList.remove("disabled");
+        } else {
+            element.classList.add("disabled");
+
+        }
+    }
 }
-?>
+</script>
 
-<!doctype html>
-<html lang="en">
+<?php if($_SESSION['state']=='existRecord') { ?>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
-    <title>Signin Template · Bootstrap v5.3</title>
+<div class="alert alert-danger" role="alert">
+    <?php echo$_SESSION['info']?> already registered</div>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+<?php 
+unset($_SESSION['info']); 
+unset($_SESSION['state']); 
+} ?>
 
-    <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<?php if($_SESSION['state']=='success') { ?>
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/apple-touch-icon.png"
-        sizes="180x180">
-    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32"
-        type="image/png">
-    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16"
-        type="image/png">
-    <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/safari-pinned-tab.svg"
-        color="#712cf9">
-    <link rel="icon" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#712cf9">
+<div class="alert alert-success" role="alert">
+    <?php echo$_SESSION['info']?> successfully registered.</div>
 
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.3/examples/sign-in/sign-in.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
+<?php 
+unset($_SESSION['info']); 
+unset($_SESSION['state']); 
+} ?>
 
-<body class="text-center">
+<?php if($_SESSION['state']=='fail') { ?>
 
-    <main class="form-signin w-100 m-auto">
-        <form action="action.php" method="POST">
-            <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72"
-                height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+<div class="alert alert-danger" role="alert"> An error ocured. Please contact system owner.</div>
 
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" name="admin_name"
-                    placeholder="Your name here">
-                <label for="floatingInput">Name</label>
-            </div>
+<?php 
+unset($_SESSION['info']); 
+unset($_SESSION['state']); 
+} ?>
 
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" name="admin_mail"
-                    placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" name="admin_password"
-                    placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" name="admincreate" type="submit">Sign Up</button>
-        </form>
 
-        <a href="login.php"><button class="w-100 my-5 btn btn-lg btn-primary" type="submit">Sign In</button></a>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+<div class="form-floating">
+    <input type="text" class="form-control" id="floatingInput" name="admin_name" placeholder="Your name here">
+    <label for="floatingInput">Name</label>
+</div>
 
-    </main>
+<div class="form-floating">
+    <input type="email" class="form-control" id="floatingInput" name="admin_mail" placeholder="name@example.com"
+        required>
+    <label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating" id="form_password">
+    <input type="password" class="form-control pswd1" id="pswd1" name="admin_password" placeholder="Password" required
+        onkeyup='check();'>
+    <label for="floatingPassword">Password</label>
+</div>
+<div class="form-floating">
+    <input type="password" class="form-control pswd2" id="pswd2" name="admin_password_confirm" placeholder="Password"
+        required onkeyup='check();'>
+    <label for="floatingPassword">Password</label>
+    <span id='message'></span>
+
+</div>
+<button class="w-100 mb-5 btn btn-lg btn-primary disabled" id="button" name="admincreate" type="submit">Sign Up</button>
+</form>
+
+<p>Have an account? <a href="login.php">Log in</a></p>
+<p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+
+</main>
 
 
 

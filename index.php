@@ -57,6 +57,7 @@ $askUser->execute();
                                     <th scope="col">Registration Date</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
+                                    <th scope="col"></th>
 
                                 </tr>
                             </thead>
@@ -70,6 +71,13 @@ $askUser->execute();
                                     <td><?php echo $pullUser['users_lname']; ?></td>
                                     <td><?php echo $pullUser['users_email']; ?></td>
                                     <td><?php echo $pullUser['users_time']; ?></td>
+                                    <td>
+                                        <center>
+                                            <a href="details-user.php?users_id=<?php echo $pullUser['users_id']; ?>">
+                                                <button class="btn btn-primary btn-xs">Details</button>
+                                            </a>
+                                        </center>
+                                    </td>
                                     <td>
                                         <center>
                                             <a href="edit-user.php?users_id=<?php echo $pullUser['users_id']; ?>">
