@@ -19,6 +19,17 @@ $askUser->execute();
         </div>
         <?php unset($_SESSION['state']); } ?>
 
+        <?php if($_SESSION['delete']=='ok') { ?>
+        <div class="alert alert-danger" role="alert">
+            The user record has been successfully deleted.
+        </div>
+        <?php unset($_SESSION['delete']); } elseif($_SESSION['delete']=='no') { ?>
+        <div class="alert alert-danger" role="alert">
+            The user record has not been successfully deleted.
+        </div>
+        <?php unset($_SESSION['state']); } ?>
+
+
         <?php if($_SESSION['useradd']=='ok') { ?>
         <div class="alert alert-success" role="alert">
             New user has been successfully added.

@@ -77,11 +77,11 @@ if (isset($_POST['userdelete'])) {
 
 
 	if ($update) {
-        $_SESSION['state']='ok';
+        $_SESSION['delete']='ok';
 		Header("Location:./index.php");
 
 	} else {
-        $_SESSION['state']='no';
+        $_SESSION['delete']='no';
 		Header("Location:./index.php");
 	}
 
